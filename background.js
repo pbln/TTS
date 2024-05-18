@@ -3,7 +3,7 @@ let selectedVoice;
 chrome.runtime.onInstalled.addListener(function() {
   chrome.contextMenus.create({
     id: "parent",
-    title: "Speak Up",
+    title: "Speak_up",
     contexts: ["selection"]
   });
 
@@ -23,6 +23,13 @@ chrome.runtime.onInstalled.addListener(function() {
     contexts: ["selection"]
   });
 
+  // Child menu item for highlighting text
+  chrome.contextMenus.create({
+    id: "highlight",
+    parentId: "parent",
+    title: "Highlight Text",
+    contexts: ["selection"]
+  });
 });
 
 chrome.contextMenus.onClicked.addListener(function(info, tab) {
@@ -36,14 +43,18 @@ chrome.contextMenus.onClicked.addListener(function(info, tab) {
     getDefinition(info.selectionText, async function(definition) {
       await chrome.notifications.create({
         type: 'basic',
-        iconUrl:'icon.png',
+        iconUrl: 'icon.png',
         title: 'Definition',
         message: definition
       });
     });
+  } else if (info.menuItemId === "highlight") {
+    chrome.scripting.executeScript({
+      target: { tabId: tab.id },
+      function: highlightSelectedText
+    });
   }
 });
-
 
 chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
   if (message.type === 'SET_SELECTED_VOICE') {
@@ -53,20 +64,31 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
 });
 
 function getDefinition(word, callback) {
-  const url = `https://api.dictionaryapi.dev/api/v2/entries/en/${word}` ; 
+  const url = `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`; 
   fetch(url)
-  .then( response => response.json())
-  .then(data =>{
-    if (data && data.length > 0 && data[0].meanings && data[0].meanings.length > 0) {
-      const definition = data[0].meanings[0].definitions[0].definition;
-      callback(definition);
-    } else {
-      callback("No defination found");
-    }
-  })
-  .catch(err =>{
-    console.error(err)
-  })
+    .then(response => response.json())
+    .then(data => {
+      if (data && data.length > 0 && data[0].meanings && data[0].meanings.length > 0) {
+        const definition = data[0].meanings[0].definitions[0].definition;
+        callback(definition);
+      } else {
+        callback("No definition found");
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      callback("Error fetching definition");
+    });
+}
 
+function highlightSelectedText() {
+  const selection = window.getSelection();
+  if (selection.rangeCount > 0) {
+    const range = selection.getRangeAt(0);
+    const span = document.createElement('span');
+    span.style.backgroundColor = 'yellow';
+    span.style.color = 'black';
+    span.appendChild(range.extractContents());
+    range.insertNode(span);
   }
-
+}
