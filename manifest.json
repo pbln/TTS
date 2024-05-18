@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "Text to Speech",
+  "version": "1.0",
+  "description": "Convert selected text to speech.",
+  "permissions": ["activeTab", "tts", "contextMenus","storage","notifications"],
+  "background": {
+      "service_worker": "background.js"
+  },
+  "icons": {
+      "48": "icon.png"
+  },
+  "action": {
+      "default_icon": "icon.png",
+      "default_title": "Convert Text to Speech",
+      "default_popup":"popup.html"
+
+  }
+}

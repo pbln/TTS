@@ -1,0 +1,69 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    width: 300px;
+    padding: 10px;
+    margin: 0;
+    background-color: #f4f4f4;
+  }
+  
+  h1 {
+    font-size: 20px;
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  /* Select Box */
+  select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: #fff;
+  }
+  
+  /* Optional: Add some styles for select options */
+  option {
+    padding: 10px;
+    font-size: 16px;
+  }
+  
+  /* Make the body of the popup scrollable if the content overflows */
+  body {
+    overflow-y: auto;
+  }
+  
+  /* Add some padding to the select box */
+  #voice_select {
+    padding: 5px;
+  }
+
+  button {
+    
+    color: rgb(47, 47, 47);
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    font-weight: bold;
+  }
+  button:hover {
+    background-color: #0056b3;
+  }
+  label {
+    margin-top: 10px;
+    display: block;
+    font-weight: bold;
+    color: #333;
+  }
+  .button-group {
+    display: flex;
+    justify-content: space-between;
+  }
+  .button-group button {
+    flex: 1;
+    margin: 5px;
+  }
