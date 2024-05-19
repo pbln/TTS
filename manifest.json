@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Text to Speech",
+  "name": "BrowseWise : Improve your productivity on Browser",
   "version": "1.0",
   "description": "Convert selected text to speech.",
   "permissions": ["activeTab", "tts", "contextMenus","storage","notifications","scripting"],

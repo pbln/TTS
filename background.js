@@ -3,7 +3,7 @@ let selectedVoice;
 chrome.runtime.onInstalled.addListener(function() {
   chrome.contextMenus.create({
     id: "parent",
-    title: "Speak_up",
+    title: "BrowseWise",
     contexts: ["selection"]
   });
 
