@@ -16,5 +16,11 @@
       "default_title": "Convert Text to Speech",
       "default_popup":"popup.html"
 
-  }
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["notes.html", "notes.js", "icon.png"],
+      "matches": ["<all_urls>"]
+    }
+  ]
 }

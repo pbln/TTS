@@ -1,0 +1,51 @@
+ /* Style for the container of each note */
+
+ body{
+    margin: 0px;
+    padding: 0px;
+    background-color: #f8f8f8;
+ }
+
+ #head{
+    text-align: center;
+    margin: 10px;
+ }
+ .note {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 10px;
+  }
+  
+  
+  .popup {
+    
+    width: 300px; 
+    height: 250px; 
+  }
+  
+  /* Style for the heading of each note */
+  .note-heading {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  /* Style for the content of each note */
+  .note-content {
+    margin-bottom: 10px;
+  }
+  
+  /* Style for the delete button */
+  .delete-button {
+    background-color: #ff6666;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .delete-button:hover {
+    background-color: #ff4d4d;
+  }
+  

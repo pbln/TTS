@@ -43,7 +43,7 @@ body {
   }
 
   button {
-    
+    margin: 10px;
     color: rgb(47, 47, 47);
     border: none;
     cursor: pointer;
@@ -51,7 +51,8 @@ body {
     font-weight: bold;
   }
   button:hover {
-    background-color: #0056b3;
+
+    background-color: #ceddf1;
   }
   label {
     margin-top: 10px;
@@ -66,4 +67,11 @@ body {
   .button-group button {
     flex: 1;
     margin: 5px;
+  }
+
+  a{
+    color: #333;
+    text-decoration: none;
+    
+    
   }

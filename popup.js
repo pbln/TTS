@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
   const select = document.getElementById("voice_select");
-   
 
   document.getElementById('pause').addEventListener('click', function() {
     chrome.tts.pause();
