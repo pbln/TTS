@@ -1,4 +1,4 @@
-/* General Styles */
+
 body {
     font-family: Arial, sans-serif;
     width: 300px;
@@ -14,7 +14,7 @@ body {
     margin-bottom: 20px;
   }
   
-  /* Select Box */
+ 
   select {
     width: 100%;
     padding: 10px;
@@ -26,18 +26,18 @@ body {
     background-color: #fff;
   }
   
-  /* Optional: Add some styles for select options */
+  
   option {
     padding: 10px;
     font-size: 16px;
   }
   
-  /* Make the body of the popup scrollable if the content overflows */
+  
   body {
     overflow-y: auto;
   }
   
-  /* Add some padding to the select box */
+  
   #voice_select {
     padding: 5px;
   }

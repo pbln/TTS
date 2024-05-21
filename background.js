@@ -22,7 +22,7 @@ chrome.runtime.onInstalled.addListener(function() {
     contexts: ["selection"]
   });
 
-  // Child menu item for getting definition
+  
   chrome.contextMenus.create({
     id: "definition",
     parentId: "parent",
@@ -30,7 +30,7 @@ chrome.runtime.onInstalled.addListener(function() {
     contexts: ["selection"]
   });
 
-  // Child menu item for highlighting text
+  
   chrome.contextMenus.create({
     id: "highlight",
     parentId: "parent",
@@ -39,30 +39,37 @@ chrome.runtime.onInstalled.addListener(function() {
   });
 });
 
+// handling all context menus 
+//1.
 chrome.contextMenus.onClicked.addListener(function(info, tab) {
   if (info.menuItemId === "speak") {
     if (selectedVoice) {
       chrome.tts.speak(info.selectionText, { "voiceName": selectedVoice.voiceName, 'lang': selectedVoice.lang, 'rate': 1.0 });
     } else {
-      chrome.tts.speak(info.selectionText, { 'rate': 1.0 }); // Fallback if no voice is selected
+      chrome.tts.speak(info.selectionText, { 'rate': 1.0 }); 
     }
-  } else if (info.menuItemId === "definition") {
-    getDefinition(info.selectionText, async function(definition) {
-      await chrome.notifications.create({
+  } 
+//2.
+  else if (info.menuItemId === "definition") {
+    getDefinition(info.selectionText, async(definition)=>{
+      await chrome.notifications.create({  //to display as chrome notification
         type: 'basic',
         iconUrl: 'icon.png',
         title: 'Definition',
         message: definition
       });
     });
-  } else if (info.menuItemId === "highlight") {
-    chrome.scripting.executeScript({
+  }
+//3.
+  else if (info.menuItemId === "highlight") {
+    chrome.scripting.executeScript({ //to inject js or css to the target context
       target: { tabId: tab.id },
       function: highlightSelectedText
     });
   }
+//4. 
   else if (info.menuItemId === "add_note") {
-    chrome.scripting.executeScript({
+    chrome.scripting.executeScript({  //the syntax is injection , callback
       target: { tabId: tab.id },
       function: copyToClipboard,
       args: [info.selectionText]
@@ -78,7 +85,7 @@ chrome.contextMenus.onClicked.addListener(function(info, tab) {
 
 chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
   if (message.type === 'SET_SELECTED_VOICE') {
-    selectedVoice = JSON.parse(message.voice);
+    selectedVoice = JSON.parse(message.voice); //parse method is used to make a js object
     console.log('Received selected voice in background script:', selectedVoice);
   }
   else if (message.type === 'SAVE_NOTE') {
@@ -90,16 +97,6 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
       });
     });
     return true;
-  }
-  else if (message.type === 'DELETE_NOTE') {
-    chrome.storage.local.get('notes', function(data) {
-      const notes = data.notes || [];
-      const updatedNotes = notes.filter((index) => index !== message.index);
-      chrome.storage.local.set({ notes: updatedNotes }, function() {
-        sendResponse({ status: 'deleted' });
-      });
-    });
-    return true; 
   }
 });
 
